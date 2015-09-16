@@ -7,9 +7,9 @@ class ReviewMigration < ActiveRecord::Migration
   def change
     create_table :employees do |t|
       t.string :name
-      t.integer :employee_id
-      t.decimal :employee_salary
-      t.integer :employee_phone
+      t.integer :department_id
+      t.decimal :salary
+      t.integer :phone
       t.string :email
       t.boolean :satisfactory
       t.text :review
@@ -18,12 +18,6 @@ class ReviewMigration < ActiveRecord::Migration
 
     create_table :departments do |t|
       t.string :name
-      t.integer :department_id
-
     end
   end
-end
-
-AlbumMigration.migrate(:up)
-rescue false
 end

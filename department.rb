@@ -1,14 +1,15 @@
-class Department
+require 'active_record'
 
-  attr_reader :name, :employees
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: 'review_db.sqlite3'
+  )
 
-  def initialize(name)
-    @name = name
-    @employees = []
-  end
+class Department <ActiveRecord::Base
+  has_many :employees
 
   def add_employee(employee)
-    @employees << employee
+    @employees_id
   end
 
   def total_salary
