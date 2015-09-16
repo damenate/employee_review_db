@@ -52,30 +52,31 @@ class ReviewsTest < Minitest::Test
   end
 
   def test_get_department_salary
-    em = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-    em2 = Employee.new(name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)
-    dept = Department.new(name: "Avengers")
-    dept = em.department
-    dept = em2.department
-    assert_equal 230000, dept SUM(dept) 
+    employee = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    employee2 = Employee.new(name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)
+    development = Department.new(name: "Avengers")
+    development.add_employee(employee)
+    development.add_employee(employee2)
+    assert_equal 230000, development.total_salary
   end
-# #
-#   def test_employees_can_be_reviewed
-#     employee = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-#     assert employee.give_review("This employee started off great. Not as impressed with her recent performance.")
-#   end
-#
-#   def test_new_employees_should_be_satisfactory
-#     employee = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-#     assert employee.satisfactory?
-#   end
-#
-#   def test_employees_can_get_raises
-#     employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-#     employee.give_raise(5000)
-#     assert_equal 85000, employee.salary
-#   end
-#
+
+  def test_employees_can_be_reviewed
+    shooter = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    shooter.review =  "She does her job well!"
+    assert "She does her job well!", shooter.review
+  end
+
+  def test_new_employees_should_be_satisfactory
+   employee = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+   assert employee.satisfactory?
+  end
+
+  def test_employees_can_get_raises
+    employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    employee.give_raise(5000)
+    assert_equal 85000, employee.salary
+  end
+
 #   def test_whole_departments_can_get_raises
 #     employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
 #     employee2 = Employee.new( name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)

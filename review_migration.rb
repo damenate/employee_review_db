@@ -11,7 +11,7 @@ class ReviewMigration < ActiveRecord::Migration
       t.decimal :salary
       t.integer :phone
       t.string :email
-      t.boolean :satisfactory
+      t.boolean :satisfactory, default:true
       t.text :review
       t.timestamps null: false
     end
