@@ -9,7 +9,7 @@ class Department <ActiveRecord::Base
   has_many :employees
 
   def add_employee(employee)
-    @employees_id
+    @employees << employee
   end
 
   def total_salary

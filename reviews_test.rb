@@ -18,16 +18,16 @@ ReviewMigration.migrate(:up)rescue false
 class ReviewsTest < Minitest::Test
 
   def test_create_new_department
-    assert Department.new(name: "Avengers")
+    assert Department.create(name: "Avengers")
     assert_raises(ArgumentError) do
-      Department.new(1,2)
+      Department.create(1,2)
     end
   end
 
   def test_create_new_employee
     assert Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
     assert_raises(ArgumentError) do
-      Employee.new(1,2,3,4,5)
+      Employee.create(1,2,3,4,5)
     end
     assert_raises(ArgumentError) do
       Employee.new(1,2,3)
@@ -35,31 +35,31 @@ class ReviewsTest < Minitest::Test
   end
 
   def test_add_employee_to_department
-    e = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
-    d = Department.new(name: "Development")
-    d.add_employee(e)
-    assert_equal [e], d.employees
+    e = Employee.create(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
+    d = Department.create(name: "Avengers")
+    e.department = d
+    assert_equal d, e.department
   end
 
   def test_get_employee_name
-    employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
+    employee = Employee.create( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
     assert_equal "Joanna", employee.name
   end
 
   def test_get_employee_salary
-    employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
+    employee = Employee.create( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
     assert_equal 85000, employee.salary
   end
 
   def test_get_department_salary
-    employee = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-    employee2 = Employee.new(name: "Lunk", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
-    development = Department.new(name: "Development")
-    development.add_employee(employee)
-    development.add_employee(employee2)
-    assert_equal 230000, development.total_salary
+    em = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    em2 = Employee.new(name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)
+    dept = Department.new(name: "Avengers")
+    dept = em.department
+    dept = em2.department
+    assert_equal 230000, dept SUM(dept) 
   end
-#
+# #
 #   def test_employees_can_be_reviewed
 #     employee = Employee.new(name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
 #     assert employee.give_review("This employee started off great. Not as impressed with her recent performance.")
@@ -78,7 +78,7 @@ class ReviewsTest < Minitest::Test
 #
 #   def test_whole_departments_can_get_raises
 #     employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-#     employee2 = Employee.new( name: "Lunk", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+#     employee2 = Employee.new( name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)
 #     employee3 = Employee.new( name: "Sanic", email: "sanic@example.com", phone: "333-444-5555", salary: 20000)
 #     development = Department.new("Development")
 #     development.add_employee(employee)
@@ -91,7 +91,7 @@ class ReviewsTest < Minitest::Test
 #
 #   def test_only_satisfactory_employees_get_raises
 #     employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
-#     employee2 = Employee.new( name: "Lunk", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+#     employee2 = Employee.new( name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)
 #     employee2.give_review("bad negative less")
 #
 #     development = Department.new("Development")
@@ -106,7 +106,7 @@ class ReviewsTest < Minitest::Test
 #   def test_no_raises_for_all_bad_employees
 #     employee = Employee.new( name: "Joanna", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
 #     employee.give_review("bad negative less")
-#     employee2 = Employee.new( name: "Lunk", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+#     employee2 = Employee.new( name: "Link", email: "Link@example.com", phone: "882-329-3843", salary: 150000)
 #     employee2.give_review("bad negative less")
 #     development = Department.new("Development")
 #     development.add_employee(employee)
